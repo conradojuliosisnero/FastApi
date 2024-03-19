@@ -16,6 +16,31 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Movie",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas \nmovies = [\n    {",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
         "label": "get_message",
         "kind": 2,
         "importPath": "main",
@@ -47,7 +72,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post \n@app.post('/movies',tags=['movies']) \ndef create_movie(id: int = Body(),title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tmovies.append({\n\t\t\"id\":id,\n\t\t\"title\":title,\n  \t\t\"overview\":overview,\n\t\t\"year\":year,",
+        "peekOfCode": "def get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post \n@app.post('/movies',tags=['movies']) \ndef create_movie(movie: Movie):\n\tmovies.append(movie)\n\treturn movies\n# metodo put \n@app.put('/movies{id}',tags=['movies'])\ndef update_movie(id: int,movie: Movie):",
         "detail": "main",
         "documentation": {}
     },
@@ -56,7 +81,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def create_movie(id: int = Body(),title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tmovies.append({\n\t\t\"id\":id,\n\t\t\"title\":title,\n  \t\t\"overview\":overview,\n\t\t\"year\":year,\n\t\t\"rating\": rating,\n\t\t\"category\": category\n\t})\n\treturn movies",
+        "peekOfCode": "def create_movie(movie: Movie):\n\tmovies.append(movie)\n\treturn movies\n# metodo put \n@app.put('/movies{id}',tags=['movies'])\ndef update_movie(id: int,movie: Movie):\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview",
         "detail": "main",
         "documentation": {}
     },
@@ -65,7 +90,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def update_movie(id: int,title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = title\n\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete ",
+        "peekOfCode": "def update_movie(id: int,movie: Movie):\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete ",
         "detail": "main",
         "documentation": {}
     },
@@ -83,7 +108,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str",
         "detail": "main",
         "documentation": {}
     },
@@ -92,7 +117,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas ",
         "detail": "main",
         "documentation": {}
     },
@@ -101,7 +126,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"Acción\"",
+        "peekOfCode": "app.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas \nmovies = [",
         "detail": "main",
         "documentation": {}
     },
@@ -119,7 +144,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\t\t\titem['title'] = title\n\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:",
+        "peekOfCode": "\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:",
         "detail": "main",
         "documentation": {}
     },
@@ -128,7 +153,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:",
+        "peekOfCode": "\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:",
         "detail": "main",
         "documentation": {}
     },
@@ -137,7 +162,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)",
+        "peekOfCode": "\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)",
         "detail": "main",
         "documentation": {}
     },
@@ -146,7 +171,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
+        "peekOfCode": "\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
         "detail": "main",
         "documentation": {}
     },
@@ -155,7 +180,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
+        "peekOfCode": "\t\t\titem['category'] = movie.category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
         "detail": "main",
         "documentation": {}
     }

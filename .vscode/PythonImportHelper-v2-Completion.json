@@ -1,0 +1,162 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Body",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "get_message",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# metodo get \n@app.get('/movies',tags=['movies'])\ndef get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies{id}',tags=['movies'])\ndef get_movie(id: int):\n    for item in movies:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_movies",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies{id}',tags=['movies'])\ndef get_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias ",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_movie",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'])\ndef get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post ",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_movie_by_category",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post \n@app.post('/movies',tags=['movies']) \ndef create_movie(id: int = Body(),title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tmovies.append({\n\t\t\"id\":id,\n\t\t\"title\":title,\n  \t\t\"overview\":overview,\n\t\t\"year\":year,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "create_movie",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def create_movie(id: int = Body(),title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tmovies.append({\n\t\t\"id\":id,\n\t\t\"title\":title,\n  \t\t\"overview\":overview,\n\t\t\"year\":year,\n\t\t\"rating\": rating,\n\t\t\"category\": category\n\t})\n\treturn movies",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "update_movie",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def update_movie(id: int,title:str = Body(),overview: str = Body(),year:int = Body(),rating: float = Body(),category:str = Body()):\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = title\n\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete ",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "delete_movie",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.title",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.version",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.version = '0.0.1'\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"Acción\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "movies",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "movies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"Acción\"\n\t},\n    {",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\titem['title']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "\t\t\titem['title'] = title\n\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\titem['overview']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "\t\t\titem['overview'] = overview\n\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\titem['year']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "\t\t\titem['year'] = year\n\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\titem['rating']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "\t\t\titem['rating'] = rating\n\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\titem['category']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "\t\t\titem['category'] = category\n\t\t\treturn movies\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'])\ndef delete_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return movies",
+        "detail": "main",
+        "documentation": {}
+    }
+]

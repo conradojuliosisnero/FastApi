@@ -48,6 +48,38 @@
         "documentation": {}
     },
     {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
         "label": "HTMLResponse",
         "importPath": "fastapi.responses",
         "description": "fastapi.responses",
@@ -104,6 +136,14 @@
         "documentation": {}
     },
     {
+        "label": "validate_token",
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "isExtraImport": true,
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
         "label": "create_token",
         "kind": 2,
         "importPath": "jwt_manager",
@@ -119,6 +159,15 @@
         "description": "jwt_manager",
         "peekOfCode": "def validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
         "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "JWTBearer",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):",
+        "detail": "main",
         "documentation": {}
     },
     {
@@ -144,7 +193,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])",
         "detail": "main",
         "documentation": {}
     },
@@ -153,7 +202,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)",
+        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)",
         "detail": "main",
         "documentation": {}
     },
@@ -216,7 +265,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):",
         "detail": "main",
         "documentation": {}
     },
@@ -225,7 +274,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str",
         "detail": "main",
         "documentation": {}
     },
@@ -234,7 +283,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)",
+        "peekOfCode": "app.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str\n    password: str",
         "detail": "main",
         "documentation": {}
     },

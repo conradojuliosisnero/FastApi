@@ -24,6 +24,14 @@
         "documentation": {}
     },
     {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "Optional",
         "importPath": "typing",
         "description": "typing",
@@ -36,7 +44,7 @@
         "kind": 6,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas \nmovies = [\n    {",
+        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {\n\t\t\t\t\t\"example\": {",
         "detail": "main",
         "documentation": {}
     },
@@ -108,7 +116,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
         "detail": "main",
         "documentation": {}
     },
@@ -117,7 +125,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas ",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:",
         "detail": "main",
         "documentation": {}
     },
@@ -126,7 +134,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str\n    overview:str\n    year:int\n    rating: float\n    category: str\n# peliculas \nmovies = [",
+        "peekOfCode": "app.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {",
         "detail": "main",
         "documentation": {}
     },

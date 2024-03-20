@@ -16,6 +16,22 @@
         "documentation": {}
     },
     {
+        "label": "Path",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "BaseModel",
         "importPath": "pydantic",
         "description": "pydantic",
@@ -53,7 +69,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# metodo get \n@app.get('/movies',tags=['movies'])\ndef get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies{id}',tags=['movies'])\ndef get_movie(id: int):\n    for item in movies:",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# metodo get \n@app.get('/movies',tags=['movies'])\ndef get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'])\ndef get_movie(id: int = Path(ge=1,le=2000)):\n    for item in movies:",
         "detail": "main",
         "documentation": {}
     },
@@ -62,7 +78,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies{id}',tags=['movies'])\ndef get_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias ",
+        "peekOfCode": "def get_movies():\n\treturn movies\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'])\ndef get_movie(id: int = Path(ge=1,le=2000)):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias ",
         "detail": "main",
         "documentation": {}
     },
@@ -71,7 +87,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie(id: int):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'])\ndef get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post ",
+        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)):\n    for item in movies:\n        if item[\"id\"] == id:\n            return item\n    return []\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'])\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)):\n    return [item for item in movies if item['category'] == category ]\n# metodo post ",
         "detail": "main",
         "documentation": {}
     },
@@ -80,7 +96,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str, year: int):\n    return [item for item in movies if item['category'] == category ]\n# metodo post \n@app.post('/movies',tags=['movies']) \ndef create_movie(movie: Movie):\n\tmovies.append(movie)\n\treturn movies\n# metodo put \n@app.put('/movies{id}',tags=['movies'])\ndef update_movie(id: int,movie: Movie):",
+        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)):\n    return [item for item in movies if item['category'] == category ]\n# metodo post \n@app.post('/movies',tags=['movies']) \ndef create_movie(movie: Movie):\n\tmovies.append(movie)\n\treturn movies\n# metodo put \n@app.put('/movies{id}',tags=['movies'])\ndef update_movie(id: int,movie: Movie):",
         "detail": "main",
         "documentation": {}
     },
@@ -143,7 +159,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "movies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"Acción\"\n\t},\n    {",
+        "peekOfCode": "movies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"accion\"\n\t},\n    {",
         "detail": "main",
         "documentation": {}
     },

@@ -67,32 +67,32 @@ def get_message():
   return "Hello World from FastApi"
 
 # metodo get 
-@app.get('/movies',tags=['movies'],response_model=List[Movie])
+@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)
 def get_movies() -> List[Movie]:
-	return JSONResponse(content=movies)
+	return JSONResponse(status_code=200,content=movies)
 
 # metodo get por id 
-@app.get('/movies/{id}',tags=['movies'],response_model=Movie)
+@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)
 def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:
     for item in movies:
         if item["id"] == id:
             return JSONResponse(content=item)
-    return JSONResponse(content=[])
+    return JSONResponse(status_code=404,content=[])
 
 # metodo get por categorias 
-@app.get('/movies/',tags=['movies'],response_model=List[Movie])
+@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)
 def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:
 	data = [item for item in movies if item['category'] == category ]
-	return JSONResponse(content=data)
+	return JSONResponse(status_code=200,content=data)
 
 # metodo post 
-@app.post('/movies',tags=['movies'],response_model=dict) 
+@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) 
 def create_movie(movie: Movie) -> dict:
 	movies.append(movie)
-	return JSONResponse(content={"message": "register movie succesfull"})
+	return JSONResponse(status_code=201,content={"message": "register movie succesfull"})
 
 # metodo put 
-@app.put('/movies{id}',tags=['movies'],response_model=dict)
+@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)
 def update_movie(id: int,movie: Movie) -> dict:
 	for item in movies:
 		if item["id"] == id:
@@ -101,13 +101,13 @@ def update_movie(id: int,movie: Movie) -> dict:
 			item['year'] = movie.year
 			item['rating'] = movie.rating
 			item['category'] = movie.category
-			return JSONResponse(content={"message": "modify movie succesfull"})
+			return JSONResponse(status_code=200,content={"message": "modify movie succesfull"})
 
 # metodo delete 
-@app.delete('/movies{id}',tags=['movies'],response_model=dict)
+@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)
 def delete_movie(id: int) -> dict:
     for item in movies:
         if item["id"] == id:
             movies.remove(item)
-            return JSONResponse(content={"message": "delete movie succesfull"})
+            return JSONResponse(status_code=200,content={"message": "delete movie succesfull"})
 			

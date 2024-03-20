@@ -1,5 +1,38 @@
 [
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm.session",
+        "description": "sqlalchemy.orm.session",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm.session",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.ext.declarative",
+        "description": "sqlalchemy.ext.declarative",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.declarative",
+        "documentation": {}
+    },
+    {
         "label": "encode",
         "importPath": "jwt",
         "description": "jwt",
@@ -141,6 +174,60 @@
         "description": "jwt_manager",
         "isExtraImport": true,
         "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite_database",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "sqlite_database = \"database.sqlite\"\nbase_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "base_dir",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "base_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "databse_url",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "databse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "engine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "Sesion",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "Sesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "config.database",
+        "description": "config.database",
+        "peekOfCode": "Base = declarative_base()",
+        "detail": "config.database",
         "documentation": {}
     },
     {

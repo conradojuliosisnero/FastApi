@@ -73,8 +73,9 @@ def get_message():
 # ruta de login 
 @app.post('/login',tags=['authentication'])
 def login_user(user: user):
-	return user
-
+    if user.email == "admin@gmail.com" and user.password == "1234":
+        token: str = create_token(user.model_dump())
+        return JSONResponse(status_code=200,content=token)
 
 # metodo get 
 @app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)

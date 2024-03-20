@@ -8,6 +8,14 @@
         "documentation": {}
     },
     {
+        "label": "decode",
+        "importPath": "jwt",
+        "description": "jwt",
+        "isExtraImport": true,
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -100,7 +108,16 @@
         "kind": 2,
         "importPath": "jwt_manager",
         "description": "jwt_manager",
-        "peekOfCode": "def create_token(data: dict):\n    token = encode(payload=data, key=\"my_secret_key\",algorithm=\"HS256\")\n    return token",
+        "peekOfCode": "def create_token(data: dict):\n    token = encode(payload=data, key=\"my_secret_key\",algorithm=\"HS256\")\n    return token\ndef validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "validate_token",
+        "kind": 2,
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "peekOfCode": "def validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
         "detail": "jwt_manager",
         "documentation": {}
     },
@@ -127,7 +144,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n\treturn user\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)",
         "detail": "main",
         "documentation": {}
     },
@@ -136,7 +153,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def login_user(user: user):\n\treturn user\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    for item in movies:",
+        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)",
         "detail": "main",
         "documentation": {}
     },

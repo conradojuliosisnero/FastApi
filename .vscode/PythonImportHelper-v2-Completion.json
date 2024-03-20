@@ -1,5 +1,13 @@
 [
     {
+        "label": "encode",
+        "importPath": "jwt",
+        "description": "jwt",
+        "isExtraImport": true,
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -80,6 +88,32 @@
         "documentation": {}
     },
     {
+        "label": "create_token",
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "isExtraImport": true,
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "create_token",
+        "kind": 2,
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "peekOfCode": "def create_token(data: dict):\n    token = encode(payload=data, key=\"my_secret_key\",algorithm=\"HS256\")\n    return token",
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
         "label": "Movie",
         "kind": 6,
         "importPath": "main",
@@ -93,7 +127,16 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    for item in movies:",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n\treturn user\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def login_user(user: user):\n\treturn user\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    for item in movies:",
         "detail": "main",
         "documentation": {}
     },
@@ -156,7 +199,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)",
         "detail": "main",
         "documentation": {}
     },
@@ -165,7 +208,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)",
         "detail": "main",
         "documentation": {}
     },
@@ -174,7 +217,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {",
+        "peekOfCode": "app.version = '0.0.1'\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)",
         "detail": "main",
         "documentation": {}
     },

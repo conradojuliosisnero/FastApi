@@ -17,6 +17,38 @@
         "documentation": {}
     },
     {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Float",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "sessionmaker",
         "importPath": "sqlalchemy.orm.session",
         "description": "sqlalchemy.orm.session",
@@ -30,6 +62,38 @@
         "description": "sqlalchemy.ext.declarative",
         "isExtraImport": true,
         "detail": "sqlalchemy.ext.declarative",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "config.database",
+        "description": "config.database",
+        "isExtraImport": true,
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "Sesion",
+        "importPath": "config.database",
+        "description": "config.database",
+        "isExtraImport": true,
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "config.database",
+        "description": "config.database",
+        "isExtraImport": true,
+        "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "config.database",
+        "description": "config.database",
+        "isExtraImport": true,
+        "detail": "config.database",
         "documentation": {}
     },
     {
@@ -177,11 +241,19 @@
         "documentation": {}
     },
     {
+        "label": "Movie",
+        "importPath": "models.movie",
+        "description": "models.movie",
+        "isExtraImport": true,
+        "detail": "models.movie",
+        "documentation": {}
+    },
+    {
         "label": "sqlite_database",
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "sqlite_database = \"database.sqlite\"\nbase_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "sqlite_database = \"../database.sqlite\"\nbase_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
@@ -228,6 +300,15 @@
         "description": "config.database",
         "peekOfCode": "Base = declarative_base()",
         "detail": "config.database",
+        "documentation": {}
+    },
+    {
+        "label": "Movie",
+        "kind": 6,
+        "importPath": "models.movie",
+        "description": "models.movie",
+        "peekOfCode": "class Movie(Base):\n    __tablename__ = \"movies\"\n    id = Column(Integer,primary_key=True)\n    title = Column(String)\n    overview = Column(String)\n    year = Column(Integer)\n    rating = Column(Float)\n    category = Column(String)",
+        "detail": "models.movie",
         "documentation": {}
     },
     {
@@ -352,7 +433,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")",
         "detail": "main",
         "documentation": {}
     },
@@ -361,7 +442,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):",
         "detail": "main",
         "documentation": {}
     },
@@ -370,7 +451,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str\n    password: str",
+        "peekOfCode": "app.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str",
         "detail": "main",
         "documentation": {}
     },

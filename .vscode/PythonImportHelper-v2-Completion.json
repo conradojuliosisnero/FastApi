@@ -65,6 +65,134 @@
         "documentation": {}
     },
     {
+        "label": "BaseHTTPMiddleware",
+        "importPath": "starlette.middleware.base",
+        "description": "starlette.middleware.base",
+        "isExtraImport": true,
+        "detail": "starlette.middleware.base",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Body",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "create_token",
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "isExtraImport": true,
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
+        "label": "validate_token",
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "isExtraImport": true,
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "importPath": "config.database",
         "description": "config.database",
@@ -113,86 +241,6 @@
         "documentation": {}
     },
     {
-        "label": "FastAPI",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Body",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Path",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Query",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Request",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPException",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Depends",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPBearer",
-        "importPath": "fastapi.security",
-        "description": "fastapi.security",
-        "isExtraImport": true,
-        "detail": "fastapi.security",
-        "documentation": {}
-    },
-    {
-        "label": "HTMLResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "JSONResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
         "label": "BaseModel",
         "importPath": "pydantic",
         "description": "pydantic",
@@ -225,22 +273,6 @@
         "documentation": {}
     },
     {
-        "label": "create_token",
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
-        "isExtraImport": true,
-        "detail": "jwt_manager",
-        "documentation": {}
-    },
-    {
-        "label": "validate_token",
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
-        "isExtraImport": true,
-        "detail": "jwt_manager",
-        "documentation": {}
-    },
-    {
         "label": "Movie",
         "importPath": "models.movie",
         "description": "models.movie",
@@ -254,6 +286,22 @@
         "description": "fastapi.encoders",
         "isExtraImport": true,
         "detail": "fastapi.encoders",
+        "documentation": {}
+    },
+    {
+        "label": "ErrorHandler",
+        "importPath": "middlewares.error_handler",
+        "description": "middlewares.error_handler",
+        "isExtraImport": true,
+        "detail": "middlewares.error_handler",
+        "documentation": {}
+    },
+    {
+        "label": "JWTBearer",
+        "importPath": "middlewares.jwt_bearer",
+        "description": "middlewares.jwt_bearer",
+        "isExtraImport": true,
+        "detail": "middlewares.jwt_bearer",
         "documentation": {}
     },
     {
@@ -311,6 +359,24 @@
         "documentation": {}
     },
     {
+        "label": "ErrorHandler",
+        "kind": 6,
+        "importPath": "middlewares.error_handler",
+        "description": "middlewares.error_handler",
+        "peekOfCode": "class ErrorHandler(BaseHTTPMiddleware):\n    def __init__(self,app: FastAPI) -> None:\n        super().__init__(app)\n    async def dispatch(self, request: Request, call_next) -> Response | JSONResponse:\n        try:\n            return await call_next(request)\n        except Exception as e:\n            return JSONResponse(status_code=500,content={\"Error\": str(e)})",
+        "detail": "middlewares.error_handler",
+        "documentation": {}
+    },
+    {
+        "label": "JWTBearer",
+        "kind": 6,
+        "importPath": "middlewares.jwt_bearer",
+        "description": "middlewares.jwt_bearer",
+        "peekOfCode": "class JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")",
+        "detail": "middlewares.jwt_bearer",
+        "documentation": {}
+    },
+    {
         "label": "Movie",
         "kind": 6,
         "importPath": "models.movie",
@@ -335,15 +401,6 @@
         "description": "jwt_manager",
         "peekOfCode": "def validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
         "detail": "jwt_manager",
-        "documentation": {}
-    },
-    {
-        "label": "JWTBearer",
-        "kind": 6,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "class JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):",
-        "detail": "main",
         "documentation": {}
     },
     {
@@ -441,7 +498,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None",
         "detail": "main",
         "documentation": {}
     },
@@ -450,7 +507,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)",
         "detail": "main",
         "documentation": {}
     },
@@ -459,7 +516,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\nBase.metadata.create_all(bind=engine)\nclass JWTBearer(HTTPBearer):\n    async def __call__(self,request:Request):\n        auth = await super().__call__(request)\n        data = validate_token(auth.credentials)\n        if data['email'] != \"admin@gmail.com\":\n            raise HTTPException(status_code=403,detail=\"credential error\")\nclass user(BaseModel):\n    email: str",
+        "peekOfCode": "app.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)",
         "detail": "main",
         "documentation": {}
     },

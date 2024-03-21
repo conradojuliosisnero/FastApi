@@ -396,7 +396,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]",
+        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()",
         "detail": "main",
         "documentation": {}
     },
@@ -405,7 +405,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()",
+        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.category == category).all()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()",
         "detail": "main",
         "documentation": {}
     },
@@ -414,7 +414,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n\tfor item in movies:",
+        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n    db = Session()",
         "detail": "main",
         "documentation": {}
     },
@@ -423,7 +423,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def update_movie(id: int,movie: Movie) -> dict:\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete ",
+        "peekOfCode": "def update_movie(id: int,movie: Movie) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    result.title = movie.title\n    result.overview = movie.overview\n    result.year = movie.year\n    result.rating = movie.rating\n    result.category = movie.category",
         "detail": "main",
         "documentation": {}
     },
@@ -432,7 +432,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def delete_movie(id: int) -> dict:\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
+        "peekOfCode": "def delete_movie(id: int) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    db.delete(result)\n    db.commit()\n    return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
         "detail": "main",
         "documentation": {}
     },
@@ -469,60 +469,6 @@
         "importPath": "main",
         "description": "main",
         "peekOfCode": "movies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",\n\t\t\"rating\": 7.8,\n\t\t\"category\": \"accion\"\n\t},\n    {",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\tdata",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\titem['title']",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef delete_movie(id: int) -> dict:\n    for item in movies:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\titem['overview']",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\t\t\titem['overview'] = movie.overview\n\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef delete_movie(id: int) -> dict:\n    for item in movies:\n        if item[\"id\"] == id:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\titem['year']",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\t\t\titem['year'] = movie.year\n\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef delete_movie(id: int) -> dict:\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\titem['rating']",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\t\t\titem['rating'] = movie.rating\n\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef delete_movie(id: int) -> dict:\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\titem['category']",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "\t\t\titem['category'] = movie.category\n\t\t\treturn JSONResponse(status_code=200,content={\"message\": \"modify movie succesfull\"})\n# metodo delete \n@app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef delete_movie(id: int) -> dict:\n    for item in movies:\n        if item[\"id\"] == id:\n            movies.remove(item)\n            return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
         "detail": "main",
         "documentation": {}
     }

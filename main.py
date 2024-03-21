@@ -109,8 +109,11 @@ def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:
 # metodo get por categorias 
 @app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)
 def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:
-	data = [item for item in movies if item['category'] == category ]
-	return JSONResponse(status_code=200,content=data)
+    db = Session()
+    result = db.query(MovieModel).filter(MovieModel.category == category).all()
+    if not result:
+        return JSONResponse(status_code=404,content={"message": "no se encontro el recurso"})
+    return JSONResponse(status_code=200,content=jsonable_encoder(result))
 
 # metodo post y registro de peliculas en la base de datos
 @app.post('/movies',tags=['movies'],response_model=dict,status_code=201) 
@@ -124,20 +127,26 @@ def create_movie(movie: Movie) -> dict:
 # metodo put 
 @app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)
 def update_movie(id: int,movie: Movie) -> dict:
-	for item in movies:
-		if item["id"] == id:
-			item['title'] = movie.title
-			item['overview'] = movie.overview
-			item['year'] = movie.year
-			item['rating'] = movie.rating
-			item['category'] = movie.category
-			return JSONResponse(status_code=200,content={"message": "modify movie succesfull"})
+    db = Session()
+    result = db.query(MovieModel).filter(MovieModel.id == id).first()
+    if not result:
+        return JSONResponse(status_code=404,content={"message": "no se encontro el recurso"})
+    result.title = movie.title
+    result.overview = movie.overview
+    result.year = movie.year
+    result.rating = movie.rating
+    result.category = movie.category
+    db.commit()
+    return JSONResponse(status_code=200,content={"message": "modify movie succesfull"})
 
 # metodo delete 
 @app.delete('/movies{id}',tags=['movies'],response_model=dict,status_code=200)
 def delete_movie(id: int) -> dict:
-    for item in movies:
-        if item["id"] == id:
-            movies.remove(item)
-            return JSONResponse(status_code=200,content={"message": "delete movie succesfull"})
+    db = Session()
+    result = db.query(MovieModel).filter(MovieModel.id == id).first()
+    if not result:
+        return JSONResponse(status_code=404,content={"message": "no se encontro el recurso"})
+    db.delete(result)
+    db.commit()
+    return JSONResponse(status_code=200,content={"message": "delete movie succesfull"})
 			

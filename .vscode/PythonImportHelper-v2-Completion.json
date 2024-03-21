@@ -113,15 +113,7 @@
         "documentation": {}
     },
     {
-        "label": "FastAPI",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Body",
+        "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -150,6 +142,30 @@
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
         "documentation": {}
     },
     {
@@ -193,6 +209,14 @@
         "documentation": {}
     },
     {
+        "label": "create_token",
+        "importPath": "jwt_manager",
+        "description": "jwt_manager",
+        "isExtraImport": true,
+        "detail": "jwt_manager",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "importPath": "config.database",
         "description": "config.database",
@@ -225,19 +249,19 @@
         "documentation": {}
     },
     {
-        "label": "encode",
-        "importPath": "jwt",
-        "description": "jwt",
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "jwt",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
-        "label": "decode",
-        "importPath": "jwt",
-        "description": "jwt",
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "jwt",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -249,7 +273,7 @@
         "documentation": {}
     },
     {
-        "label": "Field",
+        "label": "BaseModel",
         "importPath": "pydantic",
         "description": "pydantic",
         "isExtraImport": true,
@@ -289,6 +313,30 @@
         "documentation": {}
     },
     {
+        "label": "JWTBearer",
+        "importPath": "middlewares.jwt_bearer",
+        "description": "middlewares.jwt_bearer",
+        "isExtraImport": true,
+        "detail": "middlewares.jwt_bearer",
+        "documentation": {}
+    },
+    {
+        "label": "encode",
+        "importPath": "jwt",
+        "description": "jwt",
+        "isExtraImport": true,
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
+        "label": "decode",
+        "importPath": "jwt",
+        "description": "jwt",
+        "isExtraImport": true,
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
         "label": "ErrorHandler",
         "importPath": "middlewares.error_handler",
         "description": "middlewares.error_handler",
@@ -297,11 +345,19 @@
         "documentation": {}
     },
     {
-        "label": "JWTBearer",
-        "importPath": "middlewares.jwt_bearer",
-        "description": "middlewares.jwt_bearer",
+        "label": "movie_router",
+        "importPath": "routers.movie",
+        "description": "routers.movie",
         "isExtraImport": true,
-        "detail": "middlewares.jwt_bearer",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "user_router",
+        "importPath": "routers.user",
+        "description": "routers.user",
+        "isExtraImport": true,
+        "detail": "routers.user",
         "documentation": {}
     },
     {
@@ -386,6 +442,105 @@
         "documentation": {}
     },
     {
+        "label": "Movie",
+        "kind": 6,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {\n\t\t\t\t\t\"example\": {",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "get_movies",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def get_movies() -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).all()\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por id \n@movie_router.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "get_movie",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por categorias \n@movie_router.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "get_movie_by_category",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.category == category).all()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo post y registro de peliculas en la base de datos\n@movie_router.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "create_movie",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@movie_router.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n    db = Session()",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "update_movie",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def update_movie(id: int,movie: Movie) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    result.title = movie.title\n    result.overview = movie.overview\n    result.year = movie.year\n    result.rating = movie.rating\n    result.category = movie.category",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "delete_movie",
+        "kind": 2,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "def delete_movie(id: int) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    db.delete(result)\n    db.commit()\n    return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "movie_router",
+        "kind": 5,
+        "importPath": "routers.movie",
+        "description": "routers.movie",
+        "peekOfCode": "movie_router = APIRouter()\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {",
+        "detail": "routers.movie",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 6,
+        "importPath": "routers.user",
+        "description": "routers.user",
+        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\n# ruta de login \n@user_router.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)",
+        "detail": "routers.user",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "kind": 2,
+        "importPath": "routers.user",
+        "description": "routers.user",
+        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)",
+        "detail": "routers.user",
+        "documentation": {}
+    },
+    {
+        "label": "user_router",
+        "kind": 5,
+        "importPath": "routers.user",
+        "description": "routers.user",
+        "peekOfCode": "user_router = APIRouter()\nclass user(BaseModel):\n    email: str\n    password: str\n# ruta de login \n@user_router.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)",
+        "detail": "routers.user",
+        "documentation": {}
+    },
+    {
         "label": "create_token",
         "kind": 2,
         "importPath": "jwt_manager",
@@ -408,16 +563,7 @@
         "kind": 6,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "Movie",
-        "kind": 6,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {\n\t\t\t\t\t\"example\": {",
+        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\n# peliculas \nmovies = [\n    {\n\t\t\"id\": 1,\n\t\t\"title\": \"Avatar\",\n\t\t\"overview\": \"En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...\",\n\t\t\"year\": \"2009\",",
         "detail": "main",
         "documentation": {}
     },
@@ -426,70 +572,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"\n# ruta de login \n@app.post('/login',tags=['authentication'])\ndef login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "login_user",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])\ndef get_movies() -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).all()\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_movies",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_movies() -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).all()\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_movie",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_movie_by_category",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.category == category).all()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "create_movie",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n    db = Session()",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "update_movie",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def update_movie(id: int,movie: Movie) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    result.title = movie.title\n    result.overview = movie.overview\n    result.year = movie.year\n    result.rating = movie.rating\n    result.category = movie.category",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "delete_movie",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def delete_movie(id: int) -> dict:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    db.delete(result)\n    db.commit()\n    return JSONResponse(status_code=200,content={\"message\": \"delete movie succesfull\"})",
+        "peekOfCode": "def get_message():\n  return \"Hello World from FastApi\"",
         "detail": "main",
         "documentation": {}
     },
@@ -498,7 +581,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None",
+        "peekOfCode": "app = FastAPI();\napp.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\napp.include_router(movie_router)\napp.include_router(user_router)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str",
         "detail": "main",
         "documentation": {}
     },
@@ -507,7 +590,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)",
+        "peekOfCode": "app.title = 'Web Movies'\napp.version = '0.0.1'\napp.add_middleware(ErrorHandler)\napp.include_router(movie_router)\napp.include_router(user_router)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\n# peliculas ",
         "detail": "main",
         "documentation": {}
     },
@@ -516,7 +599,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app.version = '0.0.1'\napp.add_middleware(ErrorHandler)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)",
+        "peekOfCode": "app.version = '0.0.1'\napp.add_middleware(ErrorHandler)\napp.include_router(movie_router)\napp.include_router(user_router)\nBase.metadata.create_all(bind=engine)\nclass user(BaseModel):\n    email: str\n    password: str\n# peliculas \nmovies = [",
         "detail": "main",
         "documentation": {}
     },

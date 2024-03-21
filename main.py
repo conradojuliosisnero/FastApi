@@ -4,8 +4,8 @@ from fastapi.responses import HTMLResponse,JSONResponse
 from pydantic import BaseModel,Field
 from typing import Optional,List
 from jwt_manager import create_token, validate_token
-from config.database import Sesion,engine,Base
-from models.movie import Movie
+from config.database import Session,engine,Base
+from models.movie import Movie as MovieModel
 
 app = FastAPI();
 app.title = 'Web Movies'
@@ -36,10 +36,10 @@ class Movie(BaseModel):
 					"example": {
 						"id": 1,
 						"title": "Mi pelicula",
-						"overview": "ASD123456",
-						"year": 2022,
-						"rating": 9.8,
-						"category": "Acción"
+						"overview": "",
+						"year": 2024,
+						"rating": 0,
+						"category": ""
 					}
 				}
 
@@ -111,8 +111,11 @@ def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> 
 # metodo post 
 @app.post('/movies',tags=['movies'],response_model=dict,status_code=201) 
 def create_movie(movie: Movie) -> dict:
-	movies.append(movie)
-	return JSONResponse(status_code=201,content={"message": "register movie succesfull"})
+    db = Session()
+    new_movie = MovieModel(**movie.model_dump())
+    db.add(new_movie)
+    db.commit()
+    return JSONResponse(status_code=201,content={"message": "register movie succesfull"})
 
 # metodo put 
 @app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)

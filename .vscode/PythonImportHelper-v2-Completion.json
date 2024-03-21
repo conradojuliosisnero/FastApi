@@ -73,7 +73,7 @@
         "documentation": {}
     },
     {
-        "label": "Sesion",
+        "label": "Session",
         "importPath": "config.database",
         "description": "config.database",
         "isExtraImport": true,
@@ -253,7 +253,7 @@
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "sqlite_database = \"../database.sqlite\"\nbase_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "sqlite_database = \"../database.sqlite\"\nbase_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSession = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
@@ -262,7 +262,7 @@
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "base_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "base_dir = os.path.dirname(os.path.realpath(__file__))\ndatabse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSession = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
@@ -271,7 +271,7 @@
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "databse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "databse_url = f\"sqlite:///{os.path.join(base_dir,sqlite_database)}\"\nengine = create_engine(databse_url,echo=True)\nSession = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
@@ -280,16 +280,16 @@
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "engine = create_engine(databse_url,echo=True)\nSesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "engine = create_engine(databse_url,echo=True)\nSession = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
     {
-        "label": "Sesion",
+        "label": "Session",
         "kind": 5,
         "importPath": "config.database",
         "description": "config.database",
-        "peekOfCode": "Sesion = sessionmaker(bind=engine)\nBase = declarative_base()",
+        "peekOfCode": "Session = sessionmaker(bind=engine)\nBase = declarative_base()",
         "detail": "config.database",
         "documentation": {}
     },
@@ -397,7 +397,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n\tmovies.append(movie)\n\treturn JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)",
+        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()",
         "detail": "main",
         "documentation": {}
     },
@@ -406,7 +406,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n\tmovies.append(movie)\n\treturn JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n\tfor item in movies:\n\t\tif item[\"id\"] == id:\n\t\t\titem['title'] = movie.title\n\t\t\titem['overview'] = movie.overview",
+        "peekOfCode": "def create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:\n\tfor item in movies:",
         "detail": "main",
         "documentation": {}
     },
@@ -469,7 +469,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n\tmovies.append(movie)\n\treturn JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})\n# metodo put \n@app.put('/movies{id}',tags=['movies'],response_model=dict,status_code=200)\ndef update_movie(id: int,movie: Movie) -> dict:",
+        "peekOfCode": "\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})",
         "detail": "main",
         "documentation": {}
     },

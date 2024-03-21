@@ -10,6 +10,6 @@ databse_url = f"sqlite:///{os.path.join(base_dir,sqlite_database)}"
 
 engine = create_engine(databse_url,echo=True)
 
-Sesion = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine)
 
 Base = declarative_base()

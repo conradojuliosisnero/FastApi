@@ -249,6 +249,14 @@
         "documentation": {}
     },
     {
+        "label": "jsonable_encoder",
+        "importPath": "fastapi.encoders",
+        "description": "fastapi.encoders",
+        "isExtraImport": true,
+        "detail": "fastapi.encoders",
+        "documentation": {}
+    },
+    {
         "label": "sqlite_database",
         "kind": 5,
         "importPath": "config.database",
@@ -343,7 +351,7 @@
         "kind": 6,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
+        "peekOfCode": "class user(BaseModel):\n    email: str\n    password: str\nclass Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)",
         "detail": "main",
         "documentation": {}
     },
@@ -352,7 +360,7 @@
         "kind": 6,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=15)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {\n\t\t\t\t\t\"example\": {",
+        "peekOfCode": "class Movie(BaseModel):\n    id: Optional[int] = None\n    title: str = Field(min_length=5,max_length=30)\n    overview:str = Field(min_length=15,max_length=50)\n    year:int = Field(le=2024)\n    rating: float = Field(ge=1,le=10)\n    category: str = Field(min_length=5,max_length=15)\n    class Config:\n        json_schema_extra = {\n\t\t\t\t\t\"example\": {",
         "detail": "main",
         "documentation": {}
     },
@@ -370,7 +378,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])\ndef get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)",
+        "peekOfCode": "def login_user(user: user):\n    if user.email == \"admin@gmail.com\" and user.password == \"1234\":\n        token: str = create_token(user.model_dump())\n        return JSONResponse(status_code=200,content=token)\n# metodo get \n@app.get('/movies',tags=['movies'],response_model=List[Movie],status_code=200,dependencies=[Depends(JWTBearer())])\ndef get_movies() -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).all()\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))",
         "detail": "main",
         "documentation": {}
     },
@@ -379,7 +387,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movies() -> List[Movie]:\n\treturn JSONResponse(status_code=200,content=movies)\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    for item in movies:\n        if item[\"id\"] == id:\n            return JSONResponse(content=item)\n    return JSONResponse(status_code=404,content=[])\n# metodo get por categorias ",
+        "peekOfCode": "def get_movies() -> List[Movie]:\n    db = Session()\n    result = db.query(MovieModel).all()\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por id \n@app.get('/movies/{id}',tags=['movies'],response_model=Movie,status_code=200)\ndef get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:",
         "detail": "main",
         "documentation": {}
     },
@@ -388,7 +396,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    for item in movies:\n        if item[\"id\"] == id:\n            return JSONResponse(content=item)\n    return JSONResponse(status_code=404,content=[])\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)",
+        "peekOfCode": "def get_movie(id: int = Path(ge=1,le=2000)) -> Movie:\n    db = Session()\n    result = db.query(MovieModel).filter(MovieModel.id == id).first()\n    if not result:\n        return JSONResponse(status_code=404,content={\"message\": \"no se encontro el recurso\"})\n    return JSONResponse(status_code=200,content=jsonable_encoder(result))\n# metodo get por categorias \n@app.get('/movies/',tags=['movies'],response_model=List[Movie],status_code=200)\ndef get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]",
         "detail": "main",
         "documentation": {}
     },
@@ -397,7 +405,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()",
+        "peekOfCode": "def get_movie_by_category(category: str = Query(min_length=5,max_length=15)) -> List[Movie]:\n\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()",
         "detail": "main",
         "documentation": {}
     },
@@ -469,7 +477,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post \n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})",
+        "peekOfCode": "\tdata = [item for item in movies if item['category'] == category ]\n\treturn JSONResponse(status_code=200,content=data)\n# metodo post y registro de peliculas en la base de datos\n@app.post('/movies',tags=['movies'],response_model=dict,status_code=201) \ndef create_movie(movie: Movie) -> dict:\n    db = Session()\n    new_movie = MovieModel(**movie.model_dump())\n    db.add(new_movie)\n    db.commit()\n    return JSONResponse(status_code=201,content={\"message\": \"register movie succesfull\"})",
         "detail": "main",
         "documentation": {}
     },

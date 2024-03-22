@@ -1,5 +1,5 @@
 from fastapi.security import HTTPBearer
-from jwt_manager import create_token, validate_token
+from utils.jwt_manager import validate_token
 from fastapi import Request,HTTPException
 
 class JWTBearer(HTTPBearer):

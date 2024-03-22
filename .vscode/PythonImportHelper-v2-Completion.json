@@ -193,27 +193,19 @@
         "documentation": {}
     },
     {
-        "label": "create_token",
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
-        "isExtraImport": true,
-        "detail": "jwt_manager",
-        "documentation": {}
-    },
-    {
         "label": "validate_token",
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
+        "importPath": "utils.jwt_manager",
+        "description": "utils.jwt_manager",
         "isExtraImport": true,
-        "detail": "jwt_manager",
+        "detail": "utils.jwt_manager",
         "documentation": {}
     },
     {
         "label": "create_token",
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
+        "importPath": "utils.jwt_manager",
+        "description": "utils.jwt_manager",
         "isExtraImport": true,
-        "detail": "jwt_manager",
+        "detail": "utils.jwt_manager",
         "documentation": {}
     },
     {
@@ -592,19 +584,19 @@
     {
         "label": "create_token",
         "kind": 2,
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
+        "importPath": "utils.jwt_manager",
+        "description": "utils.jwt_manager",
         "peekOfCode": "def create_token(data: dict):\n    token = encode(payload=data, key=\"my_secret_key\",algorithm=\"HS256\")\n    return token\ndef validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
-        "detail": "jwt_manager",
+        "detail": "utils.jwt_manager",
         "documentation": {}
     },
     {
         "label": "validate_token",
         "kind": 2,
-        "importPath": "jwt_manager",
-        "description": "jwt_manager",
+        "importPath": "utils.jwt_manager",
+        "description": "utils.jwt_manager",
         "peekOfCode": "def validate_token(token: str) -> dict:\n    data:dict = decode(token,key=\"my_secret_key\",algorithms=['HS256'])\n    return data",
-        "detail": "jwt_manager",
+        "detail": "utils.jwt_manager",
         "documentation": {}
     },
     {

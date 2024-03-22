@@ -70,4 +70,3 @@ def delete_movie(id: int) -> dict:
         return JSONResponse(status_code=404,content={"message": "no se encontro el recurso"})
     MovieService(db).delete_movie(id)
     return JSONResponse(status_code=200,content={"message": "delete movie succesfull"})
-			
